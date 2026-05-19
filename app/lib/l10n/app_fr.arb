@@ -1,0 +1,127 @@
+{
+  "@@locale": "fr",
+  "appName": "AppName",
+  "home": "Accueil",
+  "myDoctors": "Mes médecins",
+  "profile": "Profil",
+  "english": "Anglais",
+  "french": "Français",
+  "error": "Erreur: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "active": "Actif",
+  "taken": "Pris",
+  "dosageTaken": "{dosage} • Pris",
+  "@dosageTaken": {
+    "placeholders": {
+      "dosage": {
+        "type": "String"
+      }
+    }
+  },
+  "onceDaily": "Une fois par jour",
+  "twiceDaily": "2 fois par jour",
+  "threeTimesDaily": "3 fois par jour",
+  "morning": "Matin",
+  "evening": "Soir",
+  "morningEvening": "Matin, Soir",
+  "night": "Nuit",
+  "painRelief": "Soulagement de la douleur",
+  "bloodPressure": "Tension artérielle",
+  "cholesterolHypertension": "Utilisé pour traiter le cholestérol élevé et gérer l'hypertension.",
+  "takeAfterMeals": "À prendre après les repas.",
+  "takeInMorning": "À prendre le matin.",
+  "takeAtNight": "À prendre le soir, avec ou sans nourriture.",
+  "noRefillsLeft": "Plus de renouvellement",
+  "refillLeft": "1 renouvellement restant",
+  "refillsLeft": "{count} renouvellements restants",
+  "@refillsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmDoseTaken": "Confirmer la dose prise",
+  "adherenceRate": "Taux d'observance",
+  "lastFilled": "Dernier remplissage: {date}",
+  "@lastFilled": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "goodMorning": "Bonjour,",
+  "yourProgress": "VOTRE PROGRESSION",
+  "excellent": "Excellent",
+  "onTrack": "Sur la bonne voie",
+  "good": "Bon",
+  "upNext": "À venir",
+  "now": "Maintenant",
+  "doseRecorded": "Dose enregistrée. Votre médecin a été prévenu.",
+  "laterToday": "Plus tard aujourd'hui",
+  "scheduled": "Programmé",
+  "allMedicationsTaken": "Tous les médicaments pris pour aujourd'hui !",
+  "connectWithDoctors": "Connectez-vous avec vos médecins",
+  "keepMedicalTeamUpdated": "Tenez votre équipe médicale informée",
+  "creatingAccount": "Un instant, nous créons votre compte...",
+  "howShouldWeCallYou": "Comment devrions-nous vous appeler ?",
+  "fullName": "Nom complet",
+  "fullNameHint": "ex. Alice Dupont",
+  "registrationGreeting": "D'accord {name} !\nSur quelle adresse e-mail devons-nous créer votre compte ?",
+  "@registrationGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "email": "E-mail",
+  "emailHint": "ex. alice.dupont@exemple.com",
+  "passwordTitle": "Maintenant, configurez votre mot de passe.",
+  "password": "Mot de passe",
+  "passwordHint": "Min. 8 caractères",
+  "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous",
+  "selectRole": "Veuillez sélectionner votre rôle pour continuer la configuration de votre profil",
+  "doctor": "Médecin",
+  "patient": "Patient",
+  "enterDoctorId": "Saisir l'identifiant du médecin",
+  "doctorId": "ID du médecin",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "linkWithDoctor": "Lier avec votre médecin",
+  "linkWithDoctorDescription": "Connectez-vous avec votre médecin pour recevoir en toute sécurité des ordonnances, des plans de soins personnalisés et une communication directe avec votre professionnel de santé.",
+  "scanQrCode": "Scanner le QR code",
+  "proceedManually": "Procéder manuellement",
+  "doctorFound": "Médecin trouvé !",
+  "confirmAndLink": "Confirmer et lier",
+  "rescanQrCode": "Rescanner le QR code",
+  "frequency": "Fréquence",
+  "scheduledTime": "Heure prévue",
+  "reasonForUse": "Raison d'utilisation",
+  "specialInstructions": "Instructions spéciales",
+  "takeWithFood": "À prendre pendant le repas",
+  "drinkFullGlassWater": "Boire un grand verre d'eau",
+  "refillsRemaining": "{count} Renouvellements restants",
+  "@refillsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "activePlans": "Plans actifs",
+  "medications": "Médicaments",
+  "prescriptions": "Ordonnances",
+  "pastPrescriptions": "Anciennes ordonnances",
+  "call": "Appeler",
+  "emailDoctor": "E-mail",
+  "bookOnDoctolib": "Réserver sur Doctolib",
+  "prescribedMedications": "Médicaments prescrits"
+}
