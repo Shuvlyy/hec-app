@@ -99,7 +99,6 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
       _isScanning = false;
       _titleController.text = "Cardiologie";
       
-      // Clear existing and add scan results
       for (var med in _medications) {
         med.dispose();
       }
@@ -161,25 +160,28 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
             if (widget.prescriptionId == null) ...[
               _buildScanButton(l10n),
               const Gap(32),
-              const Row(
+              Row(
                 children: [
-                  Expanded(child: Divider()),
+                  const Expanded(child: Divider()),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text("OR", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      "OR", 
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Expanded(child: Divider()),
+                  const Expanded(child: Divider()),
                 ],
               ),
               const Gap(32),
             ],
-            _buildTextField(l10n.prescriptionTitle, "e.g., Diabetes", _titleController),
+            _buildTextField(context, l10n.prescriptionTitle, "e.g., Diabetes", _titleController),
             const Gap(16),
-            _buildTextField(l10n.prescriptionEndDate, "yyyy-mm-dd", _dateController),
+            _buildTextField(context, l10n.prescriptionEndDate, "yyyy-mm-dd", _dateController),
             const Gap(32),
             ..._medications.asMap().entries.map((entry) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
-              child: _buildMedicationForm(l10n, entry.key, entry.value),
+              child: _buildMedicationForm(context, l10n, entry.key, entry.value),
             )),
             OutlinedButton.icon(
               onPressed: _addMedication,
@@ -189,23 +191,26 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
                 foregroundColor: const Color(0xFFFF8C42),
                 side: const BorderSide(color: Color(0xFFFF8C42)),
                 padding: const EdgeInsets.symmetric(vertical: 16),
+                textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
             const Gap(40),
             FilledButton(
               onPressed: _save,
-              child: Text(l10n.savePrescription, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: Text(l10n.savePrescription),
             ),
             if (widget.prescriptionId != null) ...[
               const Gap(16),
               TextButton.icon(
                 onPressed: _delete,
                 icon: const Icon(Icons.delete_outline, color: Colors.red),
-                label: const Text("Delete Prescription", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                label: const Text(
+                  "Delete Prescription", 
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  overlayColor: Colors.red,
                 ),
               ),
             ],
@@ -232,7 +237,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
               icon: _isScanning
                 ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                 : const Icon(Icons.qr_code_scanner, size: 28),
-              label: Text(_isScanning ? "Scanning..." : l10n.scanMyPrescription, style: const TextStyle(fontSize: 18)),
+              label: Text(_isScanning ? "Scanning..." : l10n.scanMyPrescription),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFF8C42),
                 foregroundColor: Colors.white,
@@ -246,28 +251,32 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
           Text(
             l10n.aiScanDescription,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey.shade700, fontSize: 14),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTextField(String label, String hint, TextEditingController controller) {
+  Widget _buildTextField(BuildContext context, String label, String hint, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          label, 
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+        ),
         const Gap(8),
         TextField(
           controller: controller,
+          style: Theme.of(context).textTheme.bodyLarge,
           decoration: InputDecoration(hintText: hint),
         ),
       ],
     );
   }
 
-  Widget _buildMedicationForm(AppLocalizations l10n, int index, MedicationFormState medState) {
+  Widget _buildMedicationForm(BuildContext context, AppLocalizations l10n, int index, MedicationFormState medState) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -280,7 +289,10 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Medication ${index + 1}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(
+                "Medication ${index + 1}", 
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               if (_medications.length > 1)
                 IconButton(
                   icon: const Icon(Icons.delete_outline, color: Colors.grey),
@@ -289,29 +301,33 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
             ],
           ),
           const Gap(16),
-          _buildTextField(l10n.medicationName, "Ex: Tylenol", medState.nameController),
+          _buildTextField(context, l10n.medicationName, "Ex: Tylenol", medState.nameController),
           const Gap(16),
           Row(
             children: [
-              Expanded(child: _buildTextField(l10n.dosage, "Ex: 1000mg", medState.dosageController)),
+              Expanded(child: _buildTextField(context, l10n.dosage, "Ex: 1000mg", medState.dosageController)),
               const Gap(16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(l10n.frequency, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    Text(
+                      l10n.frequency, 
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                     const Gap(8),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey.shade200),
+                        border: Border.all(color: const Color(0xFFF7F2ED)),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<Frequency>(
                           value: medState.frequency,
                           isExpanded: true,
+                          style: Theme.of(context).textTheme.bodyLarge,
                           items: Frequency.values.map((f) => DropdownMenuItem(
                             value: f,
                             child: Text(f.toDisplayString(l10n)),
@@ -326,7 +342,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
             ],
           ),
           const Gap(16),
-          _buildTextField(l10n.timeOptional, "--:--", medState.timeController),
+          _buildTextField(context, l10n.timeOptional, "--:--", medState.timeController),
         ],
       ),
     );

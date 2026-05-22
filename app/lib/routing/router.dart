@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:repill/ui/main_screen.dart';
 import 'package:repill/ui/home_page.dart';
 import 'package:repill/ui/prescriptions_page.dart';
+import 'package:repill/ui/prescription_details_page.dart';
 import 'package:repill/ui/edit_prescription_page.dart';
 import 'package:repill/ui/medication_details_page.dart';
 
@@ -27,6 +28,11 @@ final router = GoRouter(
           path: '/prescriptions',
           pageBuilder: (context, state) => const NoTransitionPage(child: PrescriptionsPage()),
           routes: [
+            GoRoute(
+              path: 'details/:id',
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => PrescriptionDetailsPage(prescriptionId: state.pathParameters['id']!),
+            ),
             GoRoute(
               path: 'add',
               parentNavigatorKey: _rootNavigatorKey,

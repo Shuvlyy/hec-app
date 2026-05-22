@@ -18,7 +18,7 @@ class PrescriptionsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: null, // Title is in the placeholder in MainScreen
+        title: null,
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Color(0xFFFF8C42), size: 32),
@@ -34,14 +34,12 @@ class PrescriptionsPage extends ConsumerWidget {
           children: [
             Text(
               l10n.prescriptions,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const Gap(8),
             Text(
               "Find all your current treatments and active prescriptions here.",
-              style: TextStyle(color: Colors.grey.shade600),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             const Gap(32),
             ...prescriptions.map((p) => _buildPrescriptionCard(context, p)),
@@ -56,13 +54,16 @@ class PrescriptionsPage extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = p.endDate.difference(now).inDays;
-    final isExpiringSoon = difference <= 3;
+    final isExpiringSoon = difference <= 5;
 
     final cardColor = isExpiringSoon ? const Color(0xFFFFF1F1) : Colors.white;
-    final borderColor = isExpiringSoon ? const Color(0xFFF44336).withOpacity(0.3) : Colors.grey.shade200;
+    final borderColor = isExpiringSoon ? const Color(0xFFFF6B6B).withOpacity(0.3) : const Color(0xFFF7F2ED);
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 24),
+    return InkWell(
+      onTap: () => context.push('/prescriptions/details/${p.id}'),
+      borderRadius: BorderRadius.circular(24),
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 24),
       color: cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -88,7 +89,7 @@ class PrescriptionsPage extends ConsumerWidget {
                 Expanded(
                   child: Text(
                     p.title,
-                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 IconButton(
@@ -97,14 +98,14 @@ class PrescriptionsPage extends ConsumerWidget {
                 ),
               ],
             ),
-            const Gap(24),
+            const Gap(16),
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: isExpiringSoon ? Colors.white : Colors.grey.shade50,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isExpiringSoon ? const Color(0xFFF44336).withOpacity(0.1) : Colors.transparent,
+                  color: isExpiringSoon ? const Color(0xFFFF6B6B).withOpacity(0.1) : Colors.transparent,
                 ),
               ),
               child: Column(
@@ -124,13 +125,13 @@ class PrescriptionsPage extends ConsumerWidget {
                         Expanded(
                           child: Text(
                             '${m.name} ${m.dosage}',
-                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                           ),
                         ),
                         const Gap(8),
                         Text(
                           m.frequency.toDisplayString(l10n),
-                          style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
@@ -144,14 +145,11 @@ class PrescriptionsPage extends ConsumerWidget {
             if (!isExpiringSoon) ...[
               Row(
                 children: [
-                  const Icon(Icons.calendar_month_outlined, size: 20,
-                      color: Colors.grey),
+                  const Icon(Icons.calendar_month_outlined, size: 20, color: Colors.grey),
                   const Gap(8),
                   Text(
-                    'Valid until ${DateFormat('MMMM d, yyyy').format(
-                        p.endDate)}',
-                    style: const TextStyle(
-                        color: Colors.grey, fontWeight: FontWeight.w500),
+                    'Valid until ${DateFormat('MMMM d, yyyy').format(p.endDate)}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -159,23 +157,22 @@ class PrescriptionsPage extends ConsumerWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.error_outline, color: Color(0xFFF44336), size: 24),
+                  const Icon(Icons.error_outline, color: Color(0xFFFF6B6B), size: 24),
                   const Gap(12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           "Warning",
-                          style: TextStyle(
-                            color: Color(0xFFF44336),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: const Color(0xFFFF6B6B),
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
                           ),
                         ),
                         Text(
                           l10n.expiresInDays(difference, DateFormat('MMM d, yyyy').format(p.endDate)),
-                          style: const TextStyle(color: Color(0xFFF44336), fontSize: 14),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: const Color(0xFFFF6B6B)),
                         ),
                       ],
                     ),
@@ -186,7 +183,7 @@ class PrescriptionsPage extends ConsumerWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 
   IconData _getMedicationIcon(String category) {

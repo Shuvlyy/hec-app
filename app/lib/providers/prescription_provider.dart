@@ -90,6 +90,13 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
     state = state.where((p) => p.id != id).toList();
   }
 
+  void renewPrescription(String id, DateTime newEndDate) {
+    state = [
+      for (final p in state)
+        if (p.id == id) p.copyWith(endDate: newEndDate) else p
+    ];
+  }
+
   void updateMedicationStatus(String medicationId, bool isTaken) {
     state = [
       for (final prescription in state)

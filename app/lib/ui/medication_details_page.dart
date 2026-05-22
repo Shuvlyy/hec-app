@@ -29,32 +29,38 @@ class MedicationDetailsPage extends ConsumerWidget {
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: const Color(0xFFFFF3E0),
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: const Icon(Icons.image, size: 64, color: Colors.white),
+              child: const Icon(Icons.image, size: 64, color: Color(0xFFFF8C42)),
             ),
             const Gap(32),
             Text(
               med.name,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               med.dosage,
-              style: TextStyle(fontSize: 20, color: Colors.grey.shade600),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             const Gap(32),
-            _buildDetailRow(Icons.repeat, l10n.frequency, med.frequency.toDisplayString(l10n)),
+            _buildDetailRow(context, Icons.repeat, l10n.frequency, med.frequency.toDisplayString(l10n)),
             const Gap(16),
-            _buildDetailRow(Icons.access_time, l10n.timeOptional, med.time ?? '--:--'),
+            _buildDetailRow(context, Icons.access_time, l10n.timeOptional, med.time ?? '--:--'),
             const Gap(32),
             const Divider(),
             const Gap(32),
-            Text(l10n.instructions, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text(
+              l10n.instructions, 
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
             const Gap(12),
             Text(
               med.instructions,
-              style: const TextStyle(fontSize: 16, height: 1.5),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5),
             ),
           ],
         ),
@@ -62,23 +68,29 @@ class MedicationDetailsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDetailRow(IconData icon, String label, String value) {
+  Widget _buildDetailRow(BuildContext context, IconData icon, String label, String value) {
     return Row(
       children: [
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: const Color(0xFFE3F2FD),
+            color: const Color(0xFFFFF3E0),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: const Color(0xFF0066AA)),
+          child: Icon(icon, color: const Color(0xFFFF8C42)),
         ),
         const Gap(16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: const TextStyle(color: Colors.grey, fontSize: 14)),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(
+              label, 
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            Text(
+              value, 
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ],

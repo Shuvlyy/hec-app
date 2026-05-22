@@ -11,66 +11,66 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final medications = ref.watch(todayMedicationsProvider);
     final l10n = AppLocalizations.of(context)!;
-    // final now = DateTime.now();
-    // final dateStr = DateFormat('EEEE, MMMM d').format(now);
+    return Consumer(
+      builder: (context, ref, child) {
+        final medications = ref.watch(todayMedicationsProvider);
+        
+        // Group by time
+        final groupedMeds = <String, List<Medication>>{};
+        for (final med in medications) {
+          final time = med.time ?? 'As needed';
+          groupedMeds.putIfAbsent(time, () => []).add(med);
+        }
 
-    // Group by time
-    final groupedMeds = <String, List<Medication>>{};
-    for (final med in medications) {
-      final time = med.time ?? 'As needed';
-      groupedMeds.putIfAbsent(time, () => []).add(med);
-    }
+        final sortedTimes = groupedMeds.keys.toList()..sort();
+        final dosesLeft = medications.where((m) => !m.isTaken).length;
+        final allTaken = medications.isNotEmpty && dosesLeft == 0;
 
-    final sortedTimes = groupedMeds.keys.toList()..sort();
-    final dosesLeft = medications.where((m) => !m.isTaken).length;
-    final allTaken = medications.isNotEmpty && dosesLeft == 0;
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.today,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.today,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const Gap(12),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: allTaken ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3E0),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-          ),
-          const Gap(12),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: allTaken ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3E0),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  allTaken ? Icons.check_circle_outline : Icons.info_outline,
-                  color: allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42),
-                  size: 20,
-                ),
-                const Gap(12),
-                Expanded(
-                  child: Text(
-                    allTaken ? l10n.allDosesTaken : l10n.dosesLeft(dosesLeft),
-                    style: TextStyle(
+                child: Row(
+                  children: [
+                    Icon(
+                      allTaken ? Icons.check_circle_outline : Icons.info_outline,
                       color: allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42),
-                      fontWeight: FontWeight.w500,
+                      size: 20,
                     ),
-                  ),
+                    const Gap(12),
+                    Expanded(
+                      child: Text(
+                        allTaken ? l10n.allDosesTaken : l10n.dosesLeft(dosesLeft),
+                        style: TextStyle(
+                          color: allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16, // Body size
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const Gap(32),
+              ...sortedTimes.map((time) => _buildTimelineSection(context, ref, time, groupedMeds[time]!)),
+              const Gap(80), // Space for bottom bar
+            ],
           ),
-          const Gap(32),
-          ...sortedTimes.map((time) => _buildTimelineSection(context, ref, time, groupedMeds[time]!)),
-          const Gap(80), // Space for bottom bar
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -106,7 +106,7 @@ class HomePage extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 4),
                   child: Text(
                     time,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 const Gap(16),
@@ -147,11 +147,14 @@ class HomePage extends ConsumerWidget {
                   children: [
                     Text(
                       med.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16, // Body size
+                      ),
                     ),
                     Text(
                       med.dosage,
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
