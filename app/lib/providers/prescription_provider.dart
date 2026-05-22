@@ -23,7 +23,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
           Medication(
             id: uuid.v4(),
             name: 'Metformine',
-            dosage: '500mg',
+            dosage: '1 pill',
             frequency: Frequency.onceADay,
             time: '08:00',
             instructions: 'Prendre au cours du repas',
@@ -39,7 +39,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
           Medication(
             id: uuid.v4(),
             name: 'Doliprane',
-            dosage: '1000mg',
+            dosage: '1 pill',
             frequency: Frequency.onceADay,
             time: '12:00',
             instructions: 'Prendre avec un verre d\'eau',
@@ -47,7 +47,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
           Medication(
             id: uuid.v4(),
             name: 'Spasfon',
-            dosage: '80mg',
+            dosage: '1/2 pill',
             frequency: Frequency.onceADay,
             time: '12:00',
             instructions: 'En cas de spasmes',
@@ -63,7 +63,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
           Medication(
             id: uuid.v4(),
             name: 'Levothyrox',
-            dosage: '50µg',
+            dosage: '1 pill',
             frequency: Frequency.onceADay,
             time: '20:00',
             instructions: 'À jeun le matin (ou selon prescription)',

@@ -21,7 +21,7 @@ class PrescriptionsPage extends ConsumerWidget {
         title: null, // Title is in the placeholder in MainScreen
         actions: [
           IconButton(
-            icon: const Icon(Icons.add, color: Color(0xFF0066AA), size: 32),
+            icon: const Icon(Icons.add, color: Color(0xFFFF8C42), size: 32),
             onPressed: () => context.push('/prescriptions/add'),
           ),
           const Gap(16),
@@ -118,7 +118,7 @@ class PrescriptionsPage extends ConsumerWidget {
                         Icon(
                           _getMedicationIcon(p.category),
                           size: 20,
-                          color: const Color(0xFF0066AA),
+                          color: const Color(0xFFFF8C42),
                         ),
                         const Gap(12),
                         Expanded(
@@ -218,13 +218,13 @@ class PrescriptionsPage extends ConsumerWidget {
   Color _getCategoryColor(String category) {
     switch (category) {
       case 'Diabetes':
-        return const Color(0xFF0066AA);
+        return const Color(0xFFFF8C42);
       case 'Pain':
-        return const Color(0xFF4CAF50);
+        return const Color(0xFFFFB347);
       case 'Neurology':
-        return const Color(0xFFF44336);
+        return const Color(0xFFFF6B6B);
       default:
-        return Colors.blue;
+        return const Color(0xFFFF8C42);
     }
   }
 }

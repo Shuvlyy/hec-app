@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:native_glass_navbar/native_glass_navbar.dart';
 import 'package:repill/l10n/app_localizations.dart';
+import 'package:repill/theme/app_theme.dart';
 
 class MainScreen extends StatefulWidget {
   final Widget child;
@@ -39,13 +40,13 @@ class _MainScreenState extends State<MainScreen> {
       extendBody: true,
       appBar: AppBar(
         title: Container(
-          width: 64,
-          height: 64,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
-            color: Colors.grey.shade300,
+            color: AppTheme.primaryOrange.withOpacity(0.2),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(Icons.medical_services, color: Colors.white, size: 32),
+          child: const Icon(Icons.medical_services, color: AppTheme.primaryOrange, size: 24),
         ),
       ),
       body: widget.child,

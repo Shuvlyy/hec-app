@@ -186,6 +186,8 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
               icon: const Icon(Icons.add),
               label: const Text("Add another medication"),
               style: OutlinedButton.styleFrom(
+                foregroundColor: const Color(0xFFFF8C42),
+                side: const BorderSide(color: Color(0xFFFF8C42)),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
@@ -218,7 +220,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFFE3F2FD),
+        color: const Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -232,9 +234,9 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
                 : const Icon(Icons.qr_code_scanner, size: 28),
               label: Text(_isScanning ? "Scanning..." : l10n.scanMyPrescription, style: const TextStyle(fontSize: 18)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0066AA),
+                backgroundColor: const Color(0xFFFF8C42),
                 foregroundColor: Colors.white,
-                disabledBackgroundColor: const Color(0xFF0066AA).withOpacity(0.6),
+                disabledBackgroundColor: const Color(0xFFFF8C42).withOpacity(0.6),
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
