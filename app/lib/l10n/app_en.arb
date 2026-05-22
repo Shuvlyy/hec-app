@@ -1,127 +1,47 @@
 {
-    "@@locale": "en",
-    "appName": "AppName",
-    "home": "Home",
-    "myDoctors": "My Doctors",
-    "profile": "Profile",
-    "english": "English",
-    "french": "French",
-    "error": "Error: {message}",
-    "@error": {
-        "placeholders": {
-            "message": {
-                "type": "String"
-            }
-        }
-    },
-    "active": "Active",
-    "taken": "Taken",
-    "dosageTaken": "{dosage} • Taken",
-    "@dosageTaken": {
-        "placeholders": {
-            "dosage": {
-                "type": "String"
-            }
-        }
-    },
-    "onceDaily": "Once daily",
-    "twiceDaily": "Twice daily",
-    "threeTimesDaily": "Three times daily",
-    "morning": "Morning",
-    "evening": "Evening",
-    "morningEvening": "Morning, Evening",
-    "night": "Night",
-    "painRelief": "Pain relief",
-    "bloodPressure": "Blood pressure",
-    "cholesterolHypertension": "Used to treat high cholesterol and manage hypertension.",
-    "takeAfterMeals": "Take after meals.",
-    "takeInMorning": "Take in the morning.",
-    "takeAtNight": "Take at night, with or without food.",
-    "noRefillsLeft": "No refills left",
-    "refillLeft": "1 refill left",
-    "refillsLeft": "{count} refills left",
-    "@refillsLeft": {
-        "placeholders": {
-            "count": {
-                "type": "String"
-            }
-        }
-    },
-    "confirmDoseTaken": "Confirm dose taken",
-    "adherenceRate": "Adherence rate",
-    "lastFilled": "Last filled: {date}",
-    "@lastFilled": {
-        "placeholders": {
-            "date": {
-                "type": "String"
-            }
-        }
-    },
-    "goodMorning": "Good morning,",
-    "yourProgress": "YOUR PROGRESS",
-    "excellent": "Excellent",
-    "onTrack": "On track",
-    "good": "Good",
-    "upNext": "Up next",
-    "now": "Now",
-    "doseRecorded": "Dose recorded. Your doctor has been notified.",
-    "laterToday": "Later today",
-    "scheduled": "Scheduled",
-    "allMedicationsTaken": "All medications taken for today!",
-    "connectWithDoctors": "Connect with your doctors",
-    "keepMedicalTeamUpdated": "Keep your medical team updated",
-    "creatingAccount": "One moment, we're creating your account...",
-    "howShouldWeCallYou": "How should we call you?",
-    "fullName": "Full name",
-    "fullNameHint": "e.g. Alice Smith",
-    "registrationGreeting": "Okay {name}!\nWhich email address should we use to create your account?",
-    "@registrationGreeting": {
-        "placeholders": {
-            "name": {
-                "type": "String"
-            }
-        }
-    },
-    "email": "Email",
-    "emailHint": "e.g. alice.smith@example.com",
-    "passwordTitle": "Now, set up your password.",
-    "password": "Password",
-    "passwordHint": "Min. 8 characters",
-    "alreadyHaveAccount": "Already have an account? Sign in",
-    "selectRole": "Please select your role to continue setting up your profile",
-    "doctor": "Doctor",
-    "patient": "Patient",
-    "enterDoctorId": "Enter doctor ID",
-    "doctorId": "Doctor ID",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "linkWithDoctor": "Link with your doctor",
-    "linkWithDoctorDescription": "Connect with your doctor to securely receive prescriptions, personalized care plans, and direct communication with your healthcare provider.",
-    "scanQrCode": "Scan QR code",
-    "proceedManually": "Proceed manually",
-    "doctorFound": "Doctor found!",
-    "confirmAndLink": "Confirm and link",
-    "rescanQrCode": "Rescan QR code",
-    "frequency": "Frequency",
-    "scheduledTime": "Scheduled time",
-    "reasonForUse": "Reason for use",
-    "specialInstructions": "Special instructions",
-    "takeWithFood": "Take with food",
-    "drinkFullGlassWater": "Drink a full glass of water",
-    "refillsRemaining": "{count} refills remaining",
-    "@refillsRemaining": {
-        "placeholders": {
-            "count": {
-                "type": "String"
-            }
-        }
-    },
-    "activePlans": "Active plans",
-    "medications": "Medications",
-    "prescriptions": "Prescriptions",
-    "pastPrescriptions": "Past prescriptions",
-    "call": "Call",
-    "emailDoctor": "Email",
-    "bookOnDoctolib": "Book on Doctolib",
-    "prescribedMedications": "Prescribed medications"
+  "@@locale": "en",
+  "appName": "RePill",
+  "today": "Today",
+  "prescriptions": "Prescriptions",
+  "profile": "Profile",
+  "dosesLeft": "You have {count} doses left today.",
+  "allDosesTaken": "You have taken all your medicine for today. Congratulations!",
+  "@dosesLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taken": "Taken",
+  "later": "Later",
+  "expiresInDays": "Expires in {days} days ({date})",
+  "@expiresInDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "scanMyPrescription": "Scan my prescription",
+  "aiScanDescription": "Our AI automatically extracts your medications.",
+  "prescriptionTitle": "Prescription Title",
+  "prescriptionEndDate": "Prescription end date",
+  "medicationName": "Medication name",
+  "dosage": "Dosage",
+  "frequency": "Frequency",
+  "timeOptional": "Time (Optional)",
+  "savePrescription": "Save prescription",
+  "onceADay": "1 time / day",
+  "twiceADay": "2 times / day",
+  "asNeeded": "As needed",
+  "takeWithMeal": "Take during a meal",
+  "newPrescription": "New Prescription",
+  "editPrescription": "Edit Prescription",
+  "medicationDetails": "Medication Details",
+  "instructions": "Instructions",
+  "noMedications": "No medications scheduled for today."
 }
