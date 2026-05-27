@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:milo/l10n/app_localizations.dart';
@@ -299,37 +300,68 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
       initialDate = DateTime.tryParse(_dateController.text) ?? DateTime.now();
     }
 
-    final DateTime? picked = await showDatePicker(
+    await showCupertinoModalPopup(
       context: context,
-      initialDate: initialDate,
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
+      builder: (_) => Container(
+        height: 250,
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 190,
+              child: CupertinoDatePicker(
+                initialDateTime: initialDate,
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (picked) {
+                  setState(() => _dateController.text = DateFormat('yyyy-MM-dd').format(picked));
+                },
+              ),
+            ),
+            CupertinoButton(
+              child: const Text('Done'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
     );
-
-    if (picked != null) {
-      setState(() => _dateController.text = DateFormat('yyyy-MM-dd').format(picked));
-    }
   }
 
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
-    TimeOfDay initialTime = TimeOfDay.now();
+    DateTime initialTime = DateTime.now();
     if (controller.text.isNotEmpty) {
-      try {
-        final parts = controller.text.split(':');
-        initialTime = TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
-      } catch (_) {}
+      final parts = controller.text.split(':');
+      initialTime = DateTime(0, 1, 1, int.parse(parts[0]), int.parse(parts[1]));
     }
 
-    final TimeOfDay? picked = await showTimePicker(
+    await showCupertinoModalPopup(
       context: context,
-      initialTime: initialTime,
+      builder: (_) => Container(
+        height: 250,
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 190,
+              child: CupertinoDatePicker(
+                initialDateTime: initialTime,
+                mode: CupertinoDatePickerMode.time,
+                use24hFormat: true,
+                onDateTimeChanged: (picked) {
+                  setState(() {
+                    controller.text = "${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}";
+                  });
+                },
+              ),
+            ),
+            CupertinoButton(
+              child: const Text('Done'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
     );
-
-    if (picked != null) {
-      setState(() {
-        controller.text = "${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}";
-      });
-    }
   }
 
   void _updateTimeControllers(MedicationFormState medState) {
