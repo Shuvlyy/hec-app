@@ -87,9 +87,18 @@ class PrescriptionsPage extends ConsumerWidget {
                 ),
                 const Gap(12),
                 Expanded(
-                  child: Text(
-                    p.title,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        p.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        p.doctorName,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
                   ),
                 ),
                 IconButton(

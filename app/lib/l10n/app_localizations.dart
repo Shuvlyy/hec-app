@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Our AI automatically extracts your medications.'**
   String get aiScanDescription;
 
+  /// No description provided for @doctorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor\'s Name'**
+  String get doctorName;
+
   /// No description provided for @prescriptionTitle.
   ///
   /// In en, this message translates to:

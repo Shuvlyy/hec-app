@@ -44,6 +44,7 @@ class MedicationFormState {
 
 class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
   final _titleController = TextEditingController();
+  final _doctorController = TextEditingController();
   final _dateController = TextEditingController();
   
   final List<MedicationFormState> _medications = [];
@@ -55,6 +56,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     if (widget.prescriptionId != null) {
       final p = ref.read(prescriptionProvider).firstWhere((p) => p.id == widget.prescriptionId);
       _titleController.text = p.title;
+      _doctorController.text = p.doctorName;
       _dateController.text = DateFormat('yyyy-MM-dd').format(p.endDate);
       for (final m in p.medications) {
         _medications.add(MedicationFormState(
@@ -87,6 +89,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
   @override
   void dispose() {
     _titleController.dispose();
+    _doctorController.dispose();
     _dateController.dispose();
     for (var med in _medications) {
       med.dispose();
@@ -100,6 +103,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     setState(() {
       _isScanning = false;
       _titleController.text = "Cardiologie";
+      _doctorController.text = "Dr. Martin";
       
       for (var med in _medications) {
         med.dispose();
@@ -123,6 +127,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     final newPrescription = Prescription(
       id: widget.prescriptionId ?? uuid.v4(),
       title: _titleController.text,
+      doctorName: _doctorController.text,
       category: 'General',
       endDate: DateTime.tryParse(_dateController.text) ?? DateTime.now().add(const Duration(days: 30)),
       medications: _medications.map((m) => Medication(
@@ -178,6 +183,8 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
               const Gap(32),
             ],
             _buildTextField(context, l10n.prescriptionTitle, "e.g., Diabetes", _titleController),
+            const Gap(16),
+            _buildTextField(context, l10n.doctorName, "Dr. Smith", _doctorController),
             const Gap(16),
             _buildTextField(
               context,

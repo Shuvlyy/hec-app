@@ -48,6 +48,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Our AI automatically extracts your medications.';
 
   @override
+  String get doctorName => 'Doctor\'s Name';
+
+  @override
   String get prescriptionTitle => 'Prescription Title';
 
   @override

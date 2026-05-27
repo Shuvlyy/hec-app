@@ -77,6 +77,8 @@ class PrescriptionDetailsPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const Gap(16),
+            _buildInfoRow(context, Icons.person_outline, l10n.doctorName, prescription.doctorName),
+            const Gap(16),
             _buildInfoRow(context, Icons.calendar_month_outlined, l10n.prescriptionEndDate, DateFormat('MMMM d, yyyy').format(prescription.endDate)),
             
             const Gap(40),

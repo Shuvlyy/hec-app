@@ -48,6 +48,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Notre IA extrait automatiquement vos médicaments.';
 
   @override
+  String get doctorName => 'Nom du Docteur';
+
+  @override
   String get prescriptionTitle => 'Titre de l\'ordonnance';
 
   @override

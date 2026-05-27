@@ -28,6 +28,7 @@
   },
   "scanMyPrescription": "Scanner mon ordonnance",
   "aiScanDescription": "Notre IA extrait automatiquement vos médicaments.",
+  "doctorName": "Nom du Docteur",
   "prescriptionTitle": "Titre de l'ordonnance",
   "prescriptionEndDate": "Date de fin de l'ordonnance",
   "medicationName": "Nom du médicament",

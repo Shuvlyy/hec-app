@@ -28,6 +28,7 @@
   },
   "scanMyPrescription": "Scan my prescription",
   "aiScanDescription": "Our AI automatically extracts your medications.",
+  "doctorName": "Doctor's Name",
   "prescriptionTitle": "Prescription Title",
   "prescriptionEndDate": "Prescription end date",
   "medicationName": "Medication name",

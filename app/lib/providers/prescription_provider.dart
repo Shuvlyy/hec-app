@@ -17,6 +17,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
       Prescription(
         id: uuid.v4(),
         title: 'Diabète',
+        doctorName: 'Dr. Martin',
         category: 'Diabetes',
         endDate: now.add(const Duration(days: 30)),
         medications: [
@@ -33,6 +34,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
       Prescription(
         id: uuid.v4(),
         title: 'Douleurs',
+        doctorName: 'Dr. Durand',
         category: 'Pain',
         endDate: now.add(const Duration(days: 15)),
         medications: [
@@ -50,13 +52,14 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
             dosage: '1/2 pill',
             frequency: Frequency.onceADay,
             times: ['12:00'],
-            instructions: 'En cas de spasmes',
+            instructions: 'En cas de spasms',
           ),
         ],
       ),
       Prescription(
         id: uuid.v4(),
         title: 'Neurologie / Thyroïde',
+        doctorName: 'Dr. Petit',
         category: 'Neurology',
         endDate: now.add(const Duration(days: 3)),
         medications: [
