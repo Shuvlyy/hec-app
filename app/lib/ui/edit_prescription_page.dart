@@ -21,22 +21,24 @@ class EditPrescriptionPage extends ConsumerStatefulWidget {
 class MedicationFormState {
   final TextEditingController nameController;
   final TextEditingController dosageController;
-  final TextEditingController timeController;
+  final List<TextEditingController> timeControllers;
   Frequency frequency;
 
   MedicationFormState({
     TextEditingController? nameController,
     TextEditingController? dosageController,
-    TextEditingController? timeController,
+    List<TextEditingController>? timeControllers,
     this.frequency = Frequency.onceADay,
   })  : nameController = nameController ?? TextEditingController(),
         dosageController = dosageController ?? TextEditingController(),
-        timeController = timeController ?? TextEditingController();
+        timeControllers = timeControllers ?? [TextEditingController()];
 
   void dispose() {
     nameController.dispose();
     dosageController.dispose();
-    timeController.dispose();
+    for (var c in timeControllers) {
+      c.dispose();
+    }
   }
 }
 
@@ -58,7 +60,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
         _medications.add(MedicationFormState(
           nameController: TextEditingController(text: m.name),
           dosageController: TextEditingController(text: m.dosage),
-          timeController: TextEditingController(text: m.time ?? ''),
+          timeControllers: m.times.map((t) => TextEditingController(text: t)).toList(),
           frequency: m.frequency,
         ));
       }
@@ -106,7 +108,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
       _medications.add(MedicationFormState(
         nameController: TextEditingController(text: "Kardegic"),
         dosageController: TextEditingController(text: "75mg"),
-        timeController: TextEditingController(text: "09:00"),
+        timeControllers: [TextEditingController(text: "09:00")],
         frequency: Frequency.onceADay,
       ));
       
@@ -128,7 +130,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
         name: m.nameController.text,
         dosage: m.dosageController.text,
         frequency: m.frequency,
-        time: m.timeController.text,
+        times: m.timeControllers.map((c) => c.text).where((t) => t.isNotEmpty).toList(),
         instructions: l10n.takeWithMeal,
       )).toList(),
     );
@@ -177,7 +179,13 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
             ],
             _buildTextField(context, l10n.prescriptionTitle, "e.g., Diabetes", _titleController),
             const Gap(16),
-            _buildTextField(context, l10n.prescriptionEndDate, "yyyy-mm-dd", _dateController),
+            _buildTextField(
+              context,
+              l10n.prescriptionEndDate,
+              "yyyy-mm-dd",
+              _dateController,
+              readOnly: true,
+              onTap: () => _selectDate(context)),
             const Gap(32),
             ..._medications.asMap().entries.map((entry) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -258,22 +266,77 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     );
   }
 
-  Widget _buildTextField(BuildContext context, String label, String hint, TextEditingController controller) {
+  Widget _buildTextField(BuildContext context, String label, String hint, TextEditingController controller, {VoidCallback? onTap, bool readOnly = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label, 
+          label,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const Gap(8),
         TextField(
           controller: controller,
+          onTap: onTap,
+          readOnly: readOnly,
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: InputDecoration(hintText: hint),
         ),
       ],
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    if (_dateController.text.isNotEmpty) {
+      initialDate = DateTime.tryParse(_dateController.text) ?? DateTime.now();
+    }
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime.now().subtract(const Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
+    );
+
+    if (picked != null) {
+      setState(() => _dateController.text = DateFormat('yyyy-MM-dd').format(picked));
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+    if (controller.text.isNotEmpty) {
+      try {
+        final parts = controller.text.split(':');
+        initialTime = TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+      } catch (_) {}
+    }
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+
+    if (picked != null) {
+      setState(() {
+        controller.text = "${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}";
+      });
+    }
+  }
+
+  void _updateTimeControllers(MedicationFormState medState) {
+    int count = 1;
+    if (medState.frequency == Frequency.twiceADay) count = 2;
+    else if (medState.frequency == Frequency.threeTimesADay) count = 3;
+    else if (medState.frequency == Frequency.asNeeded) count = 0;
+
+    while (medState.timeControllers.length < count) {
+      medState.timeControllers.add(TextEditingController());
+    }
+    while (medState.timeControllers.length > count) {
+      medState.timeControllers.removeLast().dispose();
+    }
   }
 
   Widget _buildMedicationForm(BuildContext context, AppLocalizations l10n, int index, MedicationFormState medState) {
@@ -332,7 +395,14 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
                             value: f,
                             child: Text(f.toDisplayString(l10n)),
                           )).toList(),
-                          onChanged: (val) => setState(() => medState.frequency = val!),
+                          onChanged: (val) {
+                            if (val != null) {
+                              setState(() {
+                                medState.frequency = val;
+                                _updateTimeControllers(medState);
+                              });
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -341,8 +411,24 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
               ),
             ],
           ),
-          const Gap(16),
-          _buildTextField(context, l10n.timeOptional, "--:--", medState.timeController),
+          if (medState.frequency != Frequency.asNeeded) ...[
+            const Gap(16),
+            ...medState.timeControllers.asMap().entries.map((entry) {
+              final idx = entry.key;
+              final controller = entry.value;
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: _buildTextField(
+                  context,
+                  medState.timeControllers.length > 1 ? "${l10n.timeOptional} ${idx + 1}" : l10n.timeOptional,
+                  "--:--",
+                  controller,
+                  readOnly: true,
+                  onTap: () => _selectTime(context, controller),
+                ),
+              );
+            }),
+          ],
         ],
       ),
     );

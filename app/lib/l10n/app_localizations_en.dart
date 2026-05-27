@@ -75,6 +75,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get twiceADay => '2 times / day';
 
   @override
+  String get threeTimesADay => '3 times / day';
+
+  @override
+  String get onceAWeek => '1 time / week';
+
+  @override
   String get asNeeded => 'As needed';
 
   @override

@@ -42,37 +42,42 @@ class NotificationService {
   }
 
   Future<void> scheduleNotification(Medication medication) async {
-    if (medication.time == null) return;
+    if (medication.times.isEmpty) return;
 
-    final parts = medication.time!.split(':');
-    final hour = int.parse(parts[0]);
-    final minute = int.parse(parts[1]);
+    for (var i = 0; i < medication.times.length; i++) {
+      final timeStr = medication.times[i];
+      final parts = timeStr.split(':');
+      if (parts.length != 2) continue;
 
-    final now = tz.TZDateTime.now(tz.local);
-    var scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
 
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
+      final now = tz.TZDateTime.now(tz.local);
+      var scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
-    await _notificationsPlugin.zonedSchedule(
-      medication.id.hashCode,
-      'Milo Reminder',
-      'Time to take your ${medication.name} (${medication.dosage})',
-      scheduledDate,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'medication_reminders',
-          'Medication Reminders',
-          importance: Importance.max,
-          priority: Priority.high,
+      if (scheduledDate.isBefore(now)) {
+        scheduledDate = scheduledDate.add(const Duration(days: 1));
+      }
+
+      await _notificationsPlugin.zonedSchedule(
+        medication.id.hashCode + i,
+        'Milo Reminder',
+        'Time to take your ${medication.name} (${medication.dosage})',
+        scheduledDate,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'medication_reminders',
+            'Medication Reminders',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+          iOS: DarwinNotificationDetails(),
         ),
-        iOS: DarwinNotificationDetails(),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    }
   }
 
   Future<void> scheduleAll(List<Medication> medications) async {

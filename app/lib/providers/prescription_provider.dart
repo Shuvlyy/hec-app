@@ -25,7 +25,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
             name: 'Metformine',
             dosage: '1 pill',
             frequency: Frequency.onceADay,
-            time: '08:00',
+            times: ['08:00'],
             instructions: 'Prendre au cours du repas',
           ),
         ],
@@ -41,7 +41,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
             name: 'Doliprane',
             dosage: '1 pill',
             frequency: Frequency.onceADay,
-            time: '12:00',
+            times: ['12:00'],
             instructions: 'Prendre avec un verre d\'eau',
           ),
           Medication(
@@ -49,7 +49,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
             name: 'Spasfon',
             dosage: '1/2 pill',
             frequency: Frequency.onceADay,
-            time: '12:00',
+            times: ['12:00'],
             instructions: 'En cas de spasmes',
           ),
         ],
@@ -65,7 +65,7 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
             name: 'Levothyrox',
             dosage: '1 pill',
             frequency: Frequency.onceADay,
-            time: '20:00',
+            times: ['20:00'],
             instructions: 'À jeun le matin (ou selon prescription)',
           ),
         ],
@@ -119,5 +119,9 @@ final todayMedicationsProvider = Provider<List<Medication>>((ref) {
   final allMeds = prescriptions.expand((p) => p.medications).toList();
   // Filter for today (for simplicity, we assume all onceADay/twiceADay are for today)
   return allMeds.where((m) => m.frequency != Frequency.asNeeded).toList()
-    ..sort((a, b) => (a.time ?? '').compareTo(b.time ?? ''));
+    ..sort((a, b) {
+      final aTime = a.times.isNotEmpty ? a.times.first : '';
+      final bTime = b.times.isNotEmpty ? b.times.first : '';
+      return aTime.compareTo(bTime);
+    });
 });

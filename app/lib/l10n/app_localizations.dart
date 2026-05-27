@@ -218,6 +218,18 @@ abstract class AppLocalizations {
   /// **'2 times / day'**
   String get twiceADay;
 
+  /// No description provided for @threeTimesADay.
+  ///
+  /// In en, this message translates to:
+  /// **'3 times / day'**
+  String get threeTimesADay;
+
+  /// No description provided for @onceAWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'1 time / week'**
+  String get onceAWeek;
+
   /// No description provided for @asNeeded.
   ///
   /// In en, this message translates to:

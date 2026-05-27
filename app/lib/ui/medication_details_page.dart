@@ -49,7 +49,7 @@ class MedicationDetailsPage extends ConsumerWidget {
             const Gap(32),
             _buildDetailRow(context, Icons.repeat, l10n.frequency, med.frequency.toDisplayString(l10n)),
             const Gap(16),
-            _buildDetailRow(context, Icons.access_time, l10n.timeOptional, med.time ?? '--:--'),
+            _buildDetailRow(context, Icons.access_time, l10n.timeOptional, med.times.isEmpty ? '--:--' : med.times.join(', ')),
             const Gap(32),
             const Divider(),
             const Gap(32),

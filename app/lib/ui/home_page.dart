@@ -19,8 +19,13 @@ class HomePage extends ConsumerWidget {
         // Group by time
         final groupedMeds = <String, List<Medication>>{};
         for (final med in medications) {
-          final time = med.time ?? 'As needed';
-          groupedMeds.putIfAbsent(time, () => []).add(med);
+          if (med.times.isEmpty) {
+            groupedMeds.putIfAbsent('As needed', () => []).add(med);
+          } else {
+            for (final time in med.times) {
+              groupedMeds.putIfAbsent(time, () => []).add(med);
+            }
+          }
         }
 
         final sortedTimes = groupedMeds.keys.toList()..sort();

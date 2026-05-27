@@ -37,6 +37,8 @@
   "savePrescription": "Enregistrer l'ordonnance",
   "onceADay": "1 fois / jour",
   "twiceADay": "2 fois / jour",
+  "threeTimesADay": "3 fois / jour",
+  "onceAWeek": "1 fois / semaine",
   "asNeeded": "Si besoin",
   "takeWithMeal": "Prendre au cours du repas",
   "newPrescription": "Nouvelle Ordonnance",

@@ -5,7 +5,7 @@ class Medication {
   final String name;
   final String dosage;
   final Frequency frequency;
-  final String? time; // Format "HH:mm"
+  final List<String> times; // List of "HH:mm"
   final String instructions;
   final bool isTaken;
 
@@ -14,7 +14,7 @@ class Medication {
     required this.name,
     required this.dosage,
     required this.frequency,
-    this.time,
+    required this.times,
     required this.instructions,
     this.isTaken = false,
   });
@@ -24,7 +24,7 @@ class Medication {
     String? name,
     String? dosage,
     Frequency? frequency,
-    String? time,
+    List<String>? times,
     String? instructions,
     bool? isTaken,
   }) {
@@ -33,7 +33,7 @@ class Medication {
       name: name ?? this.name,
       dosage: dosage ?? this.dosage,
       frequency: frequency ?? this.frequency,
-      time: time ?? this.time,
+      times: times ?? this.times,
       instructions: instructions ?? this.instructions,
       isTaken: isTaken ?? this.isTaken,
     );

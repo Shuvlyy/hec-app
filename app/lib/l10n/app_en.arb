@@ -37,6 +37,8 @@
   "savePrescription": "Save prescription",
   "onceADay": "1 time / day",
   "twiceADay": "2 times / day",
+  "threeTimesADay": "3 times / day",
+  "onceAWeek": "1 time / week",
   "asNeeded": "As needed",
   "takeWithMeal": "Take during a meal",
   "newPrescription": "New Prescription",
