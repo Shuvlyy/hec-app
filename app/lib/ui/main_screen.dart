@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:native_glass_navbar/native_glass_navbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:milo/l10n/app_localizations.dart';
 import 'package:milo/theme/app_theme.dart';
 
@@ -39,14 +40,26 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        toolbarHeight: 72,
+        centerTitle: true,
         title: Container(
-          width: 48,
-          height: 48,
+          width: 54,
+          height: 54,
+          padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: AppTheme.primaryOrange.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha(5),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-          child: const Icon(Icons.medical_services, color: AppTheme.primaryOrange, size: 24),
+          child: SvgPicture.asset(
+            'assets/tete.svg',
+          ),
         ),
       ),
       body: widget.child,
