@@ -2,8 +2,16 @@
   "@@locale": "fr",
   "appName": "Milo",
   "today": "Aujourd'hui",
-  "prescriptions": "Prescriptions",
-  "profile": "Profil",
+  "prescriptions": "Ordonnances",
+  "settings": "Paramètres",
+  "linkDMP": "Lien vers Dossier Médical Partagé",
+  "dmpImported": "DMP lié avec succès",
+  "notifications": "Notifications",
+  "enableNotifications": "Activer les rappels",
+  "aboutUs": "À propos de nous",
+  "language": "Langue",
+  "account": "Compte",
+  "privacyPolicy": "Politique de confidentialité",
   "dosesLeft": "Il vous reste {count} prises aujourd'hui.",
   "allDosesTaken": "Vous avez pris tous vos médicaments pour aujourd'hui. Félicitations !",
   "@dosesLeft": {
@@ -28,7 +36,7 @@
   },
   "scanMyPrescription": "Scanner mon ordonnance",
   "aiScanDescription": "Notre IA extrait automatiquement vos médicaments.",
-  "doctorName": "Nom du Docteur",
+  "doctorName": "Nom du médecin",
   "prescriptionTitle": "Titre de l'ordonnance",
   "prescriptionEndDate": "Date de fin de l'ordonnance",
   "medicationName": "Nom du médicament",
@@ -46,5 +54,8 @@
   "editPrescription": "Modifier l'Ordonnance",
   "medicationDetails": "Détails du Médicament",
   "instructions": "Instructions",
-  "noMedications": "Aucun médicament prévu pour aujourd'hui."
+  "noMedications": "Aucun médicament prévu pour aujourd'hui.",
+  "prescriptionRenewal": "J'ai renouvelé mon ordonnance",
+  "renewalRequired": "Renouvellement nécessaire",
+  "medications": "Médicaments"
 }

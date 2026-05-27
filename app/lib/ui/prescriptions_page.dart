@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:milo/providers/prescription_provider.dart';
@@ -59,140 +60,138 @@ class PrescriptionsPage extends ConsumerWidget {
     final cardColor = isExpiringSoon ? const Color(0xFFFFF1F1) : Colors.white;
     final borderColor = isExpiringSoon ? const Color(0xFFFF6B6B).withOpacity(0.3) : const Color(0xFFF7F2ED);
 
-    return InkWell(
-      onTap: () => context.push('/prescriptions/details/${p.id}'),
-      borderRadius: BorderRadius.circular(24),
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 24),
+    return Card(
+      margin: const EdgeInsets.only(bottom: 24),
       color: cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
         side: BorderSide(color: borderColor, width: 1),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _getCategoryColor(p.category).withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(_getCategoryIcon(p.category), color: _getCategoryColor(p.category)),
-                ),
-                const Gap(12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        p.title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Text(
-                        p.doctorName,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.more_vert),
-                  onPressed: () => context.push('/prescriptions/edit/${p.id}'),
-                ),
-              ],
-            ),
-            const Gap(16),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isExpiringSoon ? Colors.white : Colors.grey.shade50,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isExpiringSoon ? const Color(0xFFFF6B6B).withOpacity(0.1) : Colors.transparent,
-                ),
-              ),
-              child: Column(
-                children: p.medications.asMap().entries.map((entry) {
-                  final idx = entry.key;
-                  final m = entry.value;
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: idx == p.medications.length - 1 ? 0 : 12),
-                    child: Row(
-                      children: [
-                        Icon(
-                          _getMedicationIcon(p.category),
-                          size: 20,
-                          color: const Color(0xFFFF8C42),
-                        ),
-                        const Gap(12),
-                        Expanded(
-                          child: Text(
-                            '${m.name} ${m.dosage}',
-                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                          ),
-                        ),
-                        const Gap(8),
-                        Text(
-                          m.frequency.toDisplayString(l10n),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push('/prescriptions/details/${p.id}'),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: _getCategoryColor(p.category).withOpacity(0.1),
+                      shape: BoxShape.circle,
                     ),
-                  );
-                }).toList(),
-              ),
-            ),
-            const Gap(16),
-            const Divider(height: 1),
-            const Gap(16),
-            if (!isExpiringSoon) ...[
-              Row(
-                children: [
-                  const Icon(Icons.calendar_month_outlined, size: 20, color: Colors.grey),
-                  const Gap(8),
-                  Text(
-                    'Valid until ${DateFormat('MMMM d, yyyy').format(p.endDate)}',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+                    child: Icon(_getCategoryIcon(p.category), color: _getCategoryColor(p.category)),
                   ),
-                ],
-              ),
-            ] else ...[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.error_outline, color: Color(0xFFFF6B6B), size: 24),
                   const Gap(12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Warning",
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: const Color(0xFFFF6B6B),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          p.title,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Text(
-                          l10n.expiresInDays(difference, DateFormat('MMM d, yyyy').format(p.endDate)),
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: const Color(0xFFFF6B6B)),
+                          p.doctorName,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
                   ),
+                  const Icon(CupertinoIcons.forward)
                 ],
               ),
+              const Gap(16),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isExpiringSoon ? Colors.white : Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: isExpiringSoon ? const Color(0xFFFF6B6B).withOpacity(0.1) : Colors.transparent,
+                  ),
+                ),
+                child: Column(
+                  children: p.medications.asMap().entries.map((entry) {
+                    final idx = entry.key;
+                    final m = entry.value;
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: idx == p.medications.length - 1 ? 0 : 12),
+                      child: Row(
+                        children: [
+                          Icon(
+                            _getMedicationIcon(p.category),
+                            size: 20,
+                            color: const Color(0xFFFF8C42),
+                          ),
+                          const Gap(12),
+                          Expanded(
+                            child: Text(
+                              '${m.name} ${m.dosage}',
+                              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
+                          ),
+                          const Gap(8),
+                          Text(
+                            m.frequency.toDisplayString(l10n),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const Gap(16),
+              const Divider(height: 1),
+              const Gap(16),
+              if (!isExpiringSoon) ...[
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_month_outlined, size: 20, color: Colors.grey),
+                    const Gap(8),
+                    Text(
+                      'Valid until ${DateFormat('MMMM d, yyyy').format(p.endDate)}',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ] else ...[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.error_outline, color: Color(0xFFFF6B6B), size: 24),
+                    const Gap(12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Warning",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: const Color(0xFFFF6B6B),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            l10n.expiresInDays(difference, DateFormat('MMM d, yyyy').format(p.endDate)),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: const Color(0xFFFF6B6B)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   IconData _getMedicationIcon(String category) {

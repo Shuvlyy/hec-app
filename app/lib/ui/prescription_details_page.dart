@@ -61,7 +61,7 @@ class PrescriptionDetailsPage extends ConsumerWidget {
             
             // Section Title: Title (18px)
             Text(
-              "Medications", 
+              l10n.medications,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const Gap(16),
@@ -73,7 +73,7 @@ class PrescriptionDetailsPage extends ConsumerWidget {
 
             // Section Title: Title (18px)
             Text(
-              "Validity", 
+              "Validity",
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const Gap(16),
@@ -122,7 +122,7 @@ class PrescriptionDetailsPage extends ConsumerWidget {
               const Gap(12),
               Expanded(
                 child: Text(
-                  "Renewal Required",
+                  l10n.renewalRequired,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(color: const Color(0xFFFF6B6B)),
                 ),
               ),
@@ -145,7 +145,7 @@ class PrescriptionDetailsPage extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text("I renewed my prescription"),
+              child: Text(l10n.prescriptionRenewal),
             ),
           ),
         ],
@@ -177,40 +177,43 @@ class PrescriptionDetailsPage extends ConsumerWidget {
   }
 
   Widget _buildMedicationItem(BuildContext context, dynamic m, AppLocalizations l10n) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: InkWell(
-        onTap: () => context.push('/medication-details/${m.id}'),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Material(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppTheme.cardBorderColor),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF3E0),
-                  shape: BoxShape.circle,
+        child: InkWell(
+          onTap: () => context.push('/medication-details/${m.id}'),
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppTheme.cardBorderColor),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFF3E0),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.medication_outlined, color: AppTheme.primaryOrange),
                 ),
-                child: const Icon(Icons.medication_outlined, color: AppTheme.primaryOrange),
-              ),
-              const Gap(16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(m.name, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
-                    Text("${m.dosage} • ${m.frequency.toDisplayString(l10n)}", style: Theme.of(context).textTheme.bodySmall),
-                  ],
+                const Gap(16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(m.name, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                      Text("${m.dosage} • ${m.frequency.toDisplayString(l10n)}", style: Theme.of(context).textTheme.bodySmall),
+                    ],
+                  ),
                 ),
-              ),
-              const Icon(Icons.chevron_right, color: Colors.grey),
-            ],
+                const Icon(Icons.chevron_right, color: Colors.grey),
+              ],
+            ),
           ),
         ),
       ),

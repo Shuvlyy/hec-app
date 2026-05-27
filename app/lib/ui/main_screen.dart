@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
         context.go('/prescriptions');
         break;
       case 2:
-        context.go('/profile');
+        context.go('/settings');
         break;
     }
   }
@@ -69,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
         tabs: [
           NativeGlassNavBarItem(label: l10n.today, symbol: 'house.fill'),
           NativeGlassNavBarItem(label: l10n.prescriptions, symbol: 'person.2.fill'),
-          NativeGlassNavBarItem(label: l10n.profile, symbol: 'person.fill'),
+          NativeGlassNavBarItem(label: l10n.settings, symbol: 'gearshape.fill'),
         ],
         fallback: BottomNavigationBar(
           currentIndex: _currentIndex,
@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
           items: [
             BottomNavigationBarItem(icon: const Icon(Icons.calendar_today_outlined), label: l10n.today),
             BottomNavigationBarItem(icon: const Icon(Icons.medical_information_rounded), label: l10n.prescriptions),
-            BottomNavigationBarItem(icon: const Icon(Icons.person_outline), label: l10n.profile),
+            BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), label: l10n.settings),
           ],
         ),
       ),

@@ -15,10 +15,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String get today => 'Aujourd\'hui';
 
   @override
-  String get prescriptions => 'Prescriptions';
+  String get prescriptions => 'Ordonnances';
 
   @override
-  String get profile => 'Profil';
+  String get settings => 'Paramètres';
+
+  @override
+  String get linkDMP => 'Lien vers Dossier Médical Partagé';
+
+  @override
+  String get dmpImported => 'DMP lié avec succès';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get enableNotifications => 'Activer les rappels';
+
+  @override
+  String get aboutUs => 'À propos de nous';
+
+  @override
+  String get language => 'Langue';
+
+  @override
+  String get account => 'Compte';
+
+  @override
+  String get privacyPolicy => 'Politique de confidentialité';
 
   @override
   String dosesLeft(int count) {
@@ -48,7 +72,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Notre IA extrait automatiquement vos médicaments.';
 
   @override
-  String get doctorName => 'Nom du Docteur';
+  String get doctorName => 'Nom du médecin';
 
   @override
   String get prescriptionTitle => 'Titre de l\'ordonnance';
@@ -103,4 +127,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noMedications => 'Aucun médicament prévu pour aujourd\'hui.';
+
+  @override
+  String get prescriptionRenewal => 'J\'ai renouvelé mon ordonnance';
+
+  @override
+  String get renewalRequired => 'Renouvellement nécessaire';
+
+  @override
+  String get medications => 'Médicaments';
 }

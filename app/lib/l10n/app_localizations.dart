@@ -116,11 +116,59 @@ abstract class AppLocalizations {
   /// **'Prescriptions'**
   String get prescriptions;
 
-  /// No description provided for @profile.
+  /// No description provided for @settings.
   ///
   /// In en, this message translates to:
-  /// **'Profile'**
-  String get profile;
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @linkDMP.
+  ///
+  /// In en, this message translates to:
+  /// **'Link to Dossier Médical Partagé'**
+  String get linkDMP;
+
+  /// No description provided for @dmpImported.
+  ///
+  /// In en, this message translates to:
+  /// **'DMP successfully linked'**
+  String get dmpImported;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @enableNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable reminders'**
+  String get enableNotifications;
+
+  /// No description provided for @aboutUs.
+  ///
+  /// In en, this message translates to:
+  /// **'About us'**
+  String get aboutUs;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
 
   /// No description provided for @dosesLeft.
   ///
@@ -277,6 +325,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No medications scheduled for today.'**
   String get noMedications;
+
+  /// No description provided for @prescriptionRenewal.
+  ///
+  /// In en, this message translates to:
+  /// **'I renewed my prescription'**
+  String get prescriptionRenewal;
+
+  /// No description provided for @renewalRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Renewal required'**
+  String get renewalRequired;
+
+  /// No description provided for @medications.
+  ///
+  /// In en, this message translates to:
+  /// **'Medications'**
+  String get medications;
 }
 
 class _AppLocalizationsDelegate

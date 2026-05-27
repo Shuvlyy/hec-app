@@ -18,7 +18,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prescriptions => 'Prescriptions';
 
   @override
-  String get profile => 'Profile';
+  String get settings => 'Settings';
+
+  @override
+  String get linkDMP => 'Link to Dossier Médical Partagé';
+
+  @override
+  String get dmpImported => 'DMP successfully linked';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get enableNotifications => 'Enable reminders';
+
+  @override
+  String get aboutUs => 'About us';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
 
   @override
   String dosesLeft(int count) {
@@ -103,4 +127,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMedications => 'No medications scheduled for today.';
+
+  @override
+  String get prescriptionRenewal => 'I renewed my prescription';
+
+  @override
+  String get renewalRequired => 'Renewal required';
+
+  @override
+  String get medications => 'Medications';
 }

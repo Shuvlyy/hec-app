@@ -3,7 +3,15 @@
   "appName": "Milo",
   "today": "Today",
   "prescriptions": "Prescriptions",
-  "profile": "Profile",
+  "settings": "Settings",
+  "linkDMP": "Link to Dossier Médical Partagé",
+  "dmpImported": "DMP successfully linked",
+  "notifications": "Notifications",
+  "enableNotifications": "Enable reminders",
+  "aboutUs": "About us",
+  "language": "Language",
+  "account": "Account",
+  "privacyPolicy": "Privacy Policy",
   "dosesLeft": "You have {count} doses left today.",
   "allDosesTaken": "You have taken all your medicine for today. Congratulations!",
   "@dosesLeft": {
@@ -46,5 +54,8 @@
   "editPrescription": "Edit Prescription",
   "medicationDetails": "Medication Details",
   "instructions": "Instructions",
-  "noMedications": "No medications scheduled for today."
+  "noMedications": "No medications scheduled for today.",
+  "prescriptionRenewal": "I renewed my prescription",
+  "renewalRequired": "Renewal required",
+  "medications": "Medications"
 }

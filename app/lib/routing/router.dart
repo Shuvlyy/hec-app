@@ -6,6 +6,7 @@ import 'package:milo/ui/prescriptions_page.dart';
 import 'package:milo/ui/prescription_details_page.dart';
 import 'package:milo/ui/edit_prescription_page.dart';
 import 'package:milo/ui/medication_details_page.dart';
+import 'package:milo/ui/settings_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -46,8 +47,8 @@ final router = GoRouter(
           ],
         ),
         GoRoute(
-          path: '/profile',
-          pageBuilder: (context, state) => const NoTransitionPage(child: Center(child: Text("Profile"))),
+          path: '/settings',
+          pageBuilder: (context, state) => const NoTransitionPage(child: SettingsPage()),
         ),
       ],
     ),

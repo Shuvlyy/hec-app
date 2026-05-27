@@ -6,6 +6,7 @@ import 'package:milo/services/notification_service.dart';
 import 'package:milo/providers/prescription_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:milo/l10n/app_localizations.dart';
+import 'package:milo/providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,11 +29,14 @@ class RePillApp extends ConsumerWidget {
       NotificationService().scheduleAll(meds);
     });
 
+    final locale = ref.watch(localeProvider);
+
     return MaterialApp.router(
       title: 'Milo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: router,
+      locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
