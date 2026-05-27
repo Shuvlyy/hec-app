@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:native_glass_navbar/native_glass_navbar.dart';
-import 'package:repill/l10n/app_localizations.dart';
-import 'package:repill/theme/app_theme.dart';
+import 'package:milo/l10n/app_localizations.dart';
+import 'package:milo/theme/app_theme.dart';
 
 class MainScreen extends StatefulWidget {
   final Widget child;

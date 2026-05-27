@@ -1,7 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:repill/models/medication.dart';
+import 'package:milo/models/medication.dart';
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -57,7 +57,7 @@ class NotificationService {
 
     await _notificationsPlugin.zonedSchedule(
       medication.id.hashCode,
-      'RePill Reminder',
+      'Milo Reminder',
       'Time to take your ${medication.name} (${medication.dosage})',
       scheduledDate,
       const NotificationDetails(

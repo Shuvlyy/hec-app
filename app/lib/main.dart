@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:repill/routing/router.dart';
-import 'package:repill/theme/app_theme.dart';
-import 'package:repill/services/notification_service.dart';
-import 'package:repill/providers/prescription_provider.dart';
+import 'package:milo/routing/router.dart';
+import 'package:milo/theme/app_theme.dart';
+import 'package:milo/services/notification_service.dart';
+import 'package:milo/providers/prescription_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:repill/l10n/app_localizations.dart';
+import 'package:milo/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +29,7 @@ class RePillApp extends ConsumerWidget {
     });
 
     return MaterialApp.router(
-      title: 'RePill',
+      title: 'Milo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       routerConfig: router,

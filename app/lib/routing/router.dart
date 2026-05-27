@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:repill/ui/main_screen.dart';
-import 'package:repill/ui/home_page.dart';
-import 'package:repill/ui/prescriptions_page.dart';
-import 'package:repill/ui/prescription_details_page.dart';
-import 'package:repill/ui/edit_prescription_page.dart';
-import 'package:repill/ui/medication_details_page.dart';
+import 'package:milo/ui/main_screen.dart';
+import 'package:milo/ui/home_page.dart';
+import 'package:milo/ui/prescriptions_page.dart';
+import 'package:milo/ui/prescription_details_page.dart';
+import 'package:milo/ui/edit_prescription_page.dart';
+import 'package:milo/ui/medication_details_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:repill/models/frequency.dart';
-import 'package:repill/models/medication.dart';
-import 'package:repill/models/prescription.dart';
+import 'package:milo/models/frequency.dart';
+import 'package:milo/models/medication.dart';
+import 'package:milo/models/prescription.dart';
 import 'package:uuid/uuid.dart';
 
 class PrescriptionNotifier extends StateNotifier<List<Prescription>> {

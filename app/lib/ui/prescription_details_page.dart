@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:repill/providers/prescription_provider.dart';
+import 'package:milo/providers/prescription_provider.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:repill/l10n/app_localizations.dart';
+import 'package:milo/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:repill/theme/app_theme.dart';
+import 'package:milo/theme/app_theme.dart';
 
 class PrescriptionDetailsPage extends ConsumerWidget {
   final String prescriptionId;

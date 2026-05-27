@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:repill/providers/prescription_provider.dart';
-import 'package:repill/models/medication.dart';
+import 'package:milo/providers/prescription_provider.dart';
+import 'package:milo/models/medication.dart';
 import 'package:gap/gap.dart';
-import 'package:repill/l10n/app_localizations.dart';
+import 'package:milo/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {

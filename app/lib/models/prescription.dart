@@ -1,4 +1,4 @@
-import 'package:repill/models/medication.dart';
+import 'package:milo/models/medication.dart';
 
 class Prescription {
   final String id;

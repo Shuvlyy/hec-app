@@ -1,4 +1,4 @@
-import 'package:repill/models/frequency.dart';
+import 'package:milo/models/frequency.dart';
 
 class Medication {
   final String id;
