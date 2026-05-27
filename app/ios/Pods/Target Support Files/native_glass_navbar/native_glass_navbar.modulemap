@@ -1,6 +1,0 @@
-framework module native_glass_navbar {
-  umbrella header "native_glass_navbar-umbrella.h"
-
-  export *
-  module * { export * }
-}
