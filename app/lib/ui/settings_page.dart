@@ -174,7 +174,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Row(
                       children: [
-                        const Icon(CupertinoIcons.bell, color: AppTheme.primaryOrange),
+                        const Icon(CupertinoIcons.bell, color: CupertinoColors.systemGrey),
                         const Gap(16),
                         Expanded(
                           child: Text(
