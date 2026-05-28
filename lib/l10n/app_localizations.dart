@@ -314,11 +314,29 @@ abstract class AppLocalizations {
   /// **'Medication Details'**
   String get medicationDetails;
 
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
   /// No description provided for @instructions.
   ///
   /// In en, this message translates to:
   /// **'Instructions'**
   String get instructions;
+
+  /// No description provided for @noActivePrescriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No active prescriptions found.'**
+  String get noActivePrescriptions;
+
+  /// No description provided for @noPrescriptionsHome.
+  ///
+  /// In en, this message translates to:
+  /// **'No medications scheduled. Add a prescription to begin!'**
+  String get noPrescriptionsHome;
 
   /// No description provided for @noMedications.
   ///

@@ -31,6 +31,7 @@ class HomePage extends ConsumerWidget {
         final sortedTimes = groupedMeds.keys.toList()..sort();
         final dosesLeft = medications.where((m) => !m.isTaken).length;
         final allTaken = medications.isNotEmpty && dosesLeft == 0;
+        final noPrescriptions = medications.isEmpty;
 
         return SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -45,22 +46,32 @@ class HomePage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: allTaken ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3E0),
+                  color: noPrescriptions 
+                      ? const Color(0xFFFFF3E0) 
+                      : (allTaken ? const Color(0xFFE8F5E9) : const Color(0xFFFFF3E0)),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
                   children: [
                     Icon(
-                      allTaken ? Icons.check_circle_outline : Icons.info_outline,
-                      color: allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42),
+                      noPrescriptions 
+                          ? Icons.info_outline 
+                          : (allTaken ? Icons.check_circle_outline : Icons.info_outline),
+                      color: noPrescriptions 
+                          ? const Color(0xFFFF8C42) 
+                          : (allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42)),
                       size: 20,
                     ),
                     const Gap(12),
                     Expanded(
                       child: Text(
-                        allTaken ? l10n.allDosesTaken : l10n.dosesLeft(dosesLeft),
+                        noPrescriptions 
+                            ? l10n.noPrescriptionsHome 
+                            : (allTaken ? l10n.allDosesTaken : l10n.dosesLeft(dosesLeft)),
                         style: TextStyle(
-                          color: allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42),
+                          color: noPrescriptions 
+                              ? const Color(0xFFFF8C42) 
+                              : (allTaken ? const Color(0xFF4CAF50) : const Color(0xFFFF8C42)),
                           fontWeight: FontWeight.w500,
                           fontSize: 16, // Body size
                         ),

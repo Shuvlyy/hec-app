@@ -7,6 +7,7 @@ class Medication {
   final Frequency frequency;
   final List<String> times; // List of "HH:mm"
   final String instructions;
+  final String details;
   final bool isTaken;
 
   Medication({
@@ -16,6 +17,7 @@ class Medication {
     required this.frequency,
     required this.times,
     required this.instructions,
+    required this.details,
     this.isTaken = false,
   });
 
@@ -26,6 +28,7 @@ class Medication {
     Frequency? frequency,
     List<String>? times,
     String? instructions,
+    String? details,
     bool? isTaken,
   }) {
     return Medication(
@@ -35,6 +38,7 @@ class Medication {
       frequency: frequency ?? this.frequency,
       times: times ?? this.times,
       instructions: instructions ?? this.instructions,
+      details: details ?? this.details,
       isTaken: isTaken ?? this.isTaken,
     );
   }

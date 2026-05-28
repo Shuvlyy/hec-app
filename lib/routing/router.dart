@@ -7,18 +7,26 @@ import 'package:milo/ui/prescription_details_page.dart';
 import 'package:milo/ui/edit_prescription_page.dart';
 import 'package:milo/ui/medication_details_page.dart';
 import 'package:milo/ui/settings_page.dart';
+import 'package:milo/ui/splash_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      pageBuilder: (context, state) => const NoTransitionPage(child: SplashScreen()),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) {
-        return MainScreen(child: child);
+      pageBuilder: (context, state, child) {
+        return NoTransitionPage(
+          key: const ValueKey('shell'),
+          child: MainScreen(child: child),
+        );
       },
       routes: [
         GoRoute(

@@ -13,8 +13,30 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
+  bool _hasStartedFade = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeIn,
+    );
+  }
+
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    super.dispose();
+  }
 
   void _onTabTapped(int index) {
     setState(() {
@@ -37,48 +59,67 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      extendBody: true,
-      appBar: AppBar(
-        toolbarHeight: 72,
-        centerTitle: true,
-        title: Container(
-          width: 54,
-          height: 54,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withAlpha(5),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+    // Check if we should play the fade-in animation
+    if (!_hasStartedFade) {
+      final state = GoRouterState.of(context);
+      final fromSplash = state.uri.queryParameters['fromSplash'] == 'true';
+      if (fromSplash) {
+        _fadeController.forward();
+        _hasStartedFade = true;
+      } else {
+        _fadeController.value = 1.0;
+        _hasStartedFade = true;
+      }
+    }
+
+    return ColoredBox(
+      color: AppTheme.backgroundColor,
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Scaffold(
+          extendBody: true,
+          appBar: AppBar(
+            toolbarHeight: 72,
+            centerTitle: true,
+            title: Container(
+              width: 54,
+              height: 54,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(5),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
+              child: SvgPicture.asset(
+                'assets/tete.svg',
+              ),
+            ),
+          ),
+          body: widget.child,
+          bottomNavigationBar: NativeGlassNavBar(
+            currentIndex: _currentIndex,
+            onTap: _onTabTapped,
+            tabs: [
+              NativeGlassNavBarItem(label: l10n.today, symbol: 'house.fill'),
+              NativeGlassNavBarItem(label: l10n.prescriptions, symbol: 'person.2.fill'),
+              NativeGlassNavBarItem(label: l10n.settings, symbol: 'gearshape.fill'),
             ],
+            fallback: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: _onTabTapped,
+              items: [
+                BottomNavigationBarItem(icon: const Icon(Icons.calendar_today_outlined), label: l10n.today),
+                BottomNavigationBarItem(icon: const Icon(Icons.medical_information_rounded), label: l10n.prescriptions),
+                BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), label: l10n.settings),
+              ],
+            ),
           ),
-          child: SvgPicture.asset(
-            'assets/tete.svg',
-          ),
-        ),
-      ),
-      body: widget.child,
-      bottomNavigationBar: NativeGlassNavBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        tabs: [
-          NativeGlassNavBarItem(label: l10n.today, symbol: 'house.fill'),
-          NativeGlassNavBarItem(label: l10n.prescriptions, symbol: 'person.2.fill'),
-          NativeGlassNavBarItem(label: l10n.settings, symbol: 'gearshape.fill'),
-        ],
-        fallback: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: _onTabTapped,
-          items: [
-            BottomNavigationBarItem(icon: const Icon(Icons.calendar_today_outlined), label: l10n.today),
-            BottomNavigationBarItem(icon: const Icon(Icons.medical_information_rounded), label: l10n.prescriptions),
-            BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), label: l10n.settings),
-          ],
         ),
       ),
     );

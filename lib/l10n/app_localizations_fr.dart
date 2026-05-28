@@ -123,7 +123,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get medicationDetails => 'Détails du Médicament';
 
   @override
+  String get details => 'Détails';
+
+  @override
   String get instructions => 'Instructions';
+
+  @override
+  String get noActivePrescriptions => 'Aucune ordonnance active trouvée.';
+
+  @override
+  String get noPrescriptionsHome =>
+      'Aucun traitement prévu. Ajoutez une ordonnance pour commencer !';
 
   @override
   String get noMedications => 'Aucun médicament prévu pour aujourd\'hui.';

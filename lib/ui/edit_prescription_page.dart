@@ -22,21 +22,25 @@ class EditPrescriptionPage extends ConsumerStatefulWidget {
 class MedicationFormState {
   final TextEditingController nameController;
   final TextEditingController dosageController;
+  final TextEditingController detailsController;
   final List<TextEditingController> timeControllers;
   Frequency frequency;
 
   MedicationFormState({
     TextEditingController? nameController,
     TextEditingController? dosageController,
+    TextEditingController? detailsController,
     List<TextEditingController>? timeControllers,
     this.frequency = Frequency.onceADay,
   })  : nameController = nameController ?? TextEditingController(),
         dosageController = dosageController ?? TextEditingController(),
+        detailsController = detailsController ?? TextEditingController(),
         timeControllers = timeControllers ?? [TextEditingController()];
 
   void dispose() {
     nameController.dispose();
     dosageController.dispose();
+    detailsController.dispose();
     for (var c in timeControllers) {
       c.dispose();
     }
@@ -63,6 +67,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
         _medications.add(MedicationFormState(
           nameController: TextEditingController(text: m.name),
           dosageController: TextEditingController(text: m.dosage),
+          detailsController: TextEditingController(text: m.details),
           timeControllers: m.times.map((t) => TextEditingController(text: t)).toList(),
           frequency: m.frequency,
         ));
@@ -103,17 +108,18 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
       _isScanning = false;
-      _titleController.text = "Cardiologie";
-      _doctorController.text = "Dr. Martin";
+      _titleController.text = "Diabetes";
+      _doctorController.text = "Dr. Petit";
       
       for (var med in _medications) {
         med.dispose();
       }
       _medications.clear();
       _medications.add(MedicationFormState(
-        nameController: TextEditingController(text: "Kardegic"),
-        dosageController: TextEditingController(text: "75mg"),
-        timeControllers: [TextEditingController(text: "09:00")],
+        nameController: TextEditingController(text: "Empagliflozin (Jardiance)"),
+        dosageController: TextEditingController(text: "1 pill"),
+        detailsController: TextEditingController(text: "Empagliflozin is used to lower blood sugar levels in people with type 2 diabetes. It works by helping the kidneys get rid of glucose from your bloodstream through your urine. It also helps reduce the risk of heart failure and death in adults with heart disease."),
+        timeControllers: [TextEditingController(text: "16:10")],
         frequency: Frequency.onceADay,
       ));
       
@@ -138,6 +144,7 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
         frequency: m.frequency,
         times: m.timeControllers.map((c) => c.text).where((t) => t.isNotEmpty).toList(),
         instructions: l10n.takeWithMeal,
+        details: m.detailsController.text
       )).toList(),
     );
 
@@ -450,6 +457,8 @@ class _EditPrescriptionPageState extends ConsumerState<EditPrescriptionPage> {
               ),
             ],
           ),
+          const Gap(16),
+          _buildTextField(context, l10n.details, "Extra information about the medication", medState.detailsController),
           if (medState.frequency != Frequency.asNeeded) ...[
             const Gap(16),
             ...medState.timeControllers.asMap().entries.map((entry) {

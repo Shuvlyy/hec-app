@@ -43,7 +43,18 @@ class PrescriptionsPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const Gap(32),
-            ...prescriptions.map((p) => _buildPrescriptionCard(context, p)),
+            if (prescriptions.isEmpty)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 60),
+                  child: Text(
+                    l10n.noActivePrescriptions,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                  ),
+                ),
+              )
+            else
+              ...prescriptions.map((p) => _buildPrescriptionCard(context, p)),
             const Gap(80),
           ],
         ),

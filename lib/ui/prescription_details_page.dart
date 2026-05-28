@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:milo/providers/prescription_provider.dart';
 import 'package:gap/gap.dart';
@@ -65,7 +66,12 @@ class PrescriptionDetailsPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const Gap(16),
-            ...prescription.medications.map((m) => _buildMedicationItem(context, m, l10n)),
+            Column(
+              spacing: 16,
+              children: [
+                ...prescription.medications.map((m) => _buildMedicationItem(context, m, l10n))
+              ],
+            ),
             
             const Gap(32),
             const Divider(),
@@ -177,43 +183,40 @@ class PrescriptionDetailsPage extends ConsumerWidget {
   }
 
   Widget _buildMedicationItem(BuildContext context, dynamic m, AppLocalizations l10n) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Material(
-        color: Colors.white,
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        onTap: () => context.push('/medication-details/${m.id}'),
         borderRadius: BorderRadius.circular(20),
-        child: InkWell(
-          onTap: () => context.push('/medication-details/${m.id}'),
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.cardBorderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFFF3E0),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.medication_outlined, color: AppTheme.primaryOrange),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppTheme.cardBorderColor),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFFFF3E0),
+                  shape: BoxShape.circle,
                 ),
-                const Gap(16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(m.name, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
-                      Text("${m.dosage} • ${m.frequency.toDisplayString(l10n)}", style: Theme.of(context).textTheme.bodySmall),
-                    ],
-                  ),
+                child: const Icon(Icons.medication_outlined, color: AppTheme.primaryOrange),
+              ),
+              const Gap(16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(m.name, style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                    Text("${m.dosage} • ${m.frequency.toDisplayString(l10n)}", style: Theme.of(context).textTheme.bodySmall),
+                  ],
                 ),
-                const Icon(Icons.chevron_right, color: Colors.grey),
-              ],
-            ),
+              ),
+              const Icon(Icons.chevron_right, color: Colors.grey),
+            ],
           ),
         ),
       ),
@@ -221,15 +224,47 @@ class PrescriptionDetailsPage extends ConsumerWidget {
   }
 
   void _showRenewDialog(BuildContext context, WidgetRef ref, String id) {
-    showDatePicker(
+    DateTime selectedDate = DateTime.now().add(const Duration(days: 30));
+
+    showCupertinoModalPopup(
       context: context,
-      initialDate: DateTime.now().add(const Duration(days: 30)),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
-    ).then((picked) {
-      if (picked != null) {
-        ref.read(prescriptionProvider.notifier).renewPrescription(id, picked);
-      }
-    });
+      builder: (BuildContext context) => Container(
+        height: 300,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CupertinoButton(
+                  child: const Text('Cancel'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                CupertinoButton(
+                  child: const Text('Done'),
+                  onPressed: () {
+                    ref.read(prescriptionProvider.notifier).renewPrescription(id, selectedDate);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+            Expanded(
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: selectedDate,
+                minimumDate: DateTime.now().subtract(const Duration(minutes: 1)),
+                maximumDate: DateTime.now().add(const Duration(days: 365 * 2)),
+                onDateTimeChanged: (DateTime newDate) => selectedDate = newDate,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

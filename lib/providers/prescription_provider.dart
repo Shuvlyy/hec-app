@@ -14,70 +14,69 @@ class PrescriptionNotifier extends StateNotifier<List<Prescription>> {
     final uuid = const Uuid();
 
     state = [
-      Prescription(
-        id: uuid.v4(),
-        title: 'Diabète',
-        doctorName: 'Dr. Martin',
-        category: 'Diabetes',
-        endDate: now.add(const Duration(days: 30)),
-        medications: [
-          Medication(
-            id: uuid.v4(),
-            name: 'Metformine',
-            dosage: '1 pill',
-            frequency: Frequency.onceADay,
-            times: ['08:00'],
-            instructions: 'Prendre au cours du repas',
-          ),
-        ],
-      ),
-      Prescription(
-        id: uuid.v4(),
-        title: 'Douleurs',
-        doctorName: 'Dr. Durand',
-        category: 'Pain',
-        endDate: now.add(const Duration(days: 15)),
-        medications: [
-          Medication(
-            id: uuid.v4(),
-            name: 'Doliprane',
-            dosage: '1 pill',
-            frequency: Frequency.onceADay,
-            times: ['12:00'],
-            instructions: 'Prendre avec un verre d\'eau',
-          ),
-          Medication(
-            id: uuid.v4(),
-            name: 'Spasfon',
-            dosage: '1/2 pill',
-            frequency: Frequency.onceADay,
-            times: ['12:00'],
-            instructions: 'En cas de spasms',
-          ),
-        ],
-      ),
-      Prescription(
-        id: uuid.v4(),
-        title: 'Neurologie / Thyroïde',
-        doctorName: 'Dr. Petit',
-        category: 'Neurology',
-        endDate: now.add(const Duration(days: 3)),
-        medications: [
-          Medication(
-            id: uuid.v4(),
-            name: 'Levothyrox',
-            dosage: '1 pill',
-            frequency: Frequency.onceADay,
-            times: ['20:00'],
-            instructions: 'À jeun le matin (ou selon prescription)',
-          ),
-        ],
-      ),
+      // Prescription(
+      //   id: uuid.v4(),
+      //   title: 'Diabète',
+      //   doctorName: 'Dr. Martin',
+      //   category: 'Diabetes',
+      //   endDate: now.add(const Duration(days: 30)),
+      //   medications: [
+      //     Medication(
+      //       id: uuid.v4(),
+      //       name: 'Metformine',
+      //       dosage: '1 pill',
+      //       frequency: Frequency.onceADay,
+      //       times: ['08:00'],
+      //       instructions: 'Prendre au cours du repas',
+      //     ),
+      //   ],
+      // ),
+      // Prescription(
+      //   id: uuid.v4(),
+      //   title: 'Douleurs',
+      //   doctorName: 'Dr. Durand',
+      //   category: 'Pain',
+      //   endDate: now.add(const Duration(days: 15)),
+      //   medications: [
+      //     Medication(
+      //       id: uuid.v4(),
+      //       name: 'Doliprane',
+      //       dosage: '1 pill',
+      //       frequency: Frequency.onceADay,
+      //       times: ['12:00'],
+      //       instructions: 'Prendre avec un verre d\'eau',
+      //     ),
+      //     Medication(
+      //       id: uuid.v4(),
+      //       name: 'Spasfon',
+      //       dosage: '1/2 pill',
+      //       frequency: Frequency.onceADay,
+      //       times: ['12:00'],
+      //       instructions: 'En cas de spasms',
+      //     ),
+      //   ],
+      // ),
+      // Prescription(
+      //   id: uuid.v4(),
+      //   title: 'Neurologie / Thyroïde',
+      //   doctorName: 'Dr. Petit',
+      //   category: 'Neurology',
+      //   endDate: now.add(const Duration(days: 3)),
+      //   medications: [
+      //     Medication(
+      //       id: uuid.v4(),
+      //       name: 'Levothyrox',
+      //       dosage: '1 pill',
+      //       frequency: Frequency.onceADay,
+      //       times: ['20:00'],
+      //       instructions: 'À jeun le matin (ou selon prescription)',
+      //     ),
+      //   ],
+      // ),
     ];
   }
 
   void addPrescription(Prescription prescription) {
-    // Check if it's an update
     final index = state.indexWhere((p) => p.id == prescription.id);
     if (index != -1) {
       state = [

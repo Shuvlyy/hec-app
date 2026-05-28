@@ -123,7 +123,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicationDetails => 'Medication Details';
 
   @override
+  String get details => 'Details';
+
+  @override
   String get instructions => 'Instructions';
+
+  @override
+  String get noActivePrescriptions => 'No active prescriptions found.';
+
+  @override
+  String get noPrescriptionsHome =>
+      'No medications scheduled. Add a prescription to begin!';
 
   @override
   String get noMedications => 'No medications scheduled for today.';

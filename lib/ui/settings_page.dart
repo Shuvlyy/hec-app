@@ -44,32 +44,43 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         title: 'Hypertension',
         doctorName: 'Dr. Legrand',
         category: 'Cardiology',
-        endDate: now.add(const Duration(days: 90)),
+        endDate: now.add(const Duration(days: 2)),
         medications: [
           Medication(
             id: uuid.v4(),
             name: 'Amlodipine',
-            dosage: '5mg',
+            dosage: '2 pills',
             frequency: Frequency.onceADay,
             times: ['09:00'],
-            instructions: 'Le matin',
+            instructions: 'Take with food',
+            details: 'Amlodipine is a calcium channel blocker used to treat high blood pressure (hypertension) and chest pain (angina). By relaxing blood vessels, it improves blood flow and lowers blood pressure, reducing the workload on your heart. Regular use helps prevent future heart disease, heart attacks, and strokes.'
           ),
         ],
       ),
       Prescription(
         id: uuid.v4(),
-        title: 'Cholestérol',
+        title: 'Cholesterol',
         doctorName: 'Dr. Legrand',
         category: 'Cardiology',
-        endDate: now.add(const Duration(days: 90)),
+        endDate: now.add(const Duration(days: 24)),
         medications: [
           Medication(
             id: uuid.v4(),
-            name: 'Atorvastatine',
-            dosage: '20mg',
+            name: 'Atorvastatin',
+            dosage: '1 pill',
             frequency: Frequency.onceADay,
-            times: ['21:00'],
-            instructions: 'Le soir',
+            times: ['22:00'],
+            instructions: 'Take just before sleep, with a glass of water.',
+            details: 'Atorvastatin belongs to a group of medicines called statins. It is used to lower cholesterol if you have been diagnosed with high cholesterol. It is also taken to prevent heart disease, including heart attacks and strokes. It works by reducing the amount of cholesterol made by the liver.'
+          ),
+          Medication(
+            id: uuid.v4(),
+            name: 'Ezetimibe',
+            dosage: '1 pill',
+            frequency: Frequency.onceADay,
+            times: ['14:00'],
+            instructions: 'Can be taken with or without food.',
+            details: 'Ezetimibe is used to lower cholesterol by reducing the amount of cholesterol your body absorbs from the food you eat. It is often prescribed alongside a statin when a statin alone does not lower cholesterol levels enough.'
           ),
         ],
       ),
